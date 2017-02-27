@@ -9,15 +9,28 @@ class UserTableSeeder extends Seeder {
     public function run()
     {
         $this->createAdmin();
+        $this->createUsers(50);
     }
 
     private function createAdmin()
     {
         User::create([
-            'name' => 'Migul Torres ',
+            'name' => 'Miguel Torres',
             'email' => 'mta1830@gmail.com',
             'password' => bcrypt('admin')
         ]);
+    }
+
+    private function createUsers($total)
+    {
+        $faker = Faker::create();
+        for ($i = 1; $i <= $total; $i++) {
+            User::create([
+                'name' => $faker->name,
+                'email' => $faker->email,
+                'password' => bcrypt('secret')
+            ]);
+        }
     }
 
 }
