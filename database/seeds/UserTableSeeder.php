@@ -3,7 +3,8 @@ use Faker\Generator;
 use TeachMe\Entities\User;
 use Faker\Factory as Faker;
 
-class UserTableSeeder extends BaseSeeder {
+class UserTableSeeder extends BaseSeeder
+{
     public function getModel()
     {
         return new User();

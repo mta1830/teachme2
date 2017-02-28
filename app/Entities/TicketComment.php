@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class TicketComment extends Model {
+class TicketComment extends Model
+{
 
-	//
-
+    //
 }

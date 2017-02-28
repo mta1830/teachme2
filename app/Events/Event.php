@@ -1,7 +1,7 @@
 <?php namespace TeachMe\Events;
 
-abstract class Event {
+abstract class Event
+{
 
-	//
-
+    //
 }
