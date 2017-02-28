@@ -8,8 +8,7 @@ class HtmlServiceProviders extends CollectiveHtmlServiceProviders
 {
     protected function registerHtmlBuilder()
     {
-        $this->app->bindShared('html', function($app)
-        {
+        $this->app->bindShared('html', function ($app) {
             return new HtmlBuilder($app['url']);
         });
     }

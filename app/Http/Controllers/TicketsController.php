@@ -5,9 +5,9 @@ use TeachMe\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class TicketsController extends Controller {
-
-	public function latest()
+class TicketsController extends Controller
+{
+    public function latest()
     {
         return view('tickets/list');
     }
@@ -31,5 +31,4 @@ class TicketsController extends Controller {
     {
         return view('tickets/details');
     }
-
 }
