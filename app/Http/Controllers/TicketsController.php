@@ -12,9 +12,8 @@ class TicketsController extends Controller
     public function latest()
     {
         $tickets = Ticket::orderBy('created_at', 'DESC')->paginate(20);
-        $title = 'Solicitudes recientes';
 
-        return view('tickets/list',compact('tickets','title'));
+        return view('tickets/list',compact('tickets'));
     }
 
     public function popular()
@@ -25,17 +24,15 @@ class TicketsController extends Controller
     public function open()
     {
         $tickets = $this->consultaTicketsPorStatus('open');
-        $title = 'Solicitudes abiertas';
 
-        return view('tickets/list', compact('tickets','title'));
+        return view('tickets/list', compact('tickets'));
     }
 
     public function closed()
     {
         $tickets = $this->consultaTicketsPorStatus('closed');
-        $title = 'Tutoriales';
 
-        return view('tickets/list', compact('tickets','title'));
+        return view('tickets/list', compact('tickets'));
     }
 
     public function details($id)
