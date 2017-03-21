@@ -1,5 +1,7 @@
 <?php namespace TeachMe\Http\Controllers;
 
+use Psy\Util\String;
+use TeachMe\Entities\Ticket;
 use TeachMe\Http\Requests;
 use TeachMe\Http\Controllers\Controller;
 
@@ -9,7 +11,9 @@ class TicketsController extends Controller
 {
     public function latest()
     {
-        return view('tickets/list');
+        $tickets = Ticket::orderBy('created_at', 'DESC')->paginate(20);
+
+        return view('tickets/list',compact('tickets'));
     }
 
     public function popular()
@@ -19,16 +23,28 @@ class TicketsController extends Controller
 
     public function open()
     {
-        return view('tickets/list');
+        return $this->consultaTicketsPorStatus('open');
     }
 
     public function closed()
     {
-        return view('tickets/list');
+        return $this->consultaTicketsPorStatus('closed');
     }
 
     public function details($id)
     {
-        return view('tickets/details');
+        $ticket = Ticket::findOrFail($id);
+
+        return view('tickets/details', compact('ticket'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function consultaTicketsPorStatus($status)
+    {
+        $tickets = Ticket::where('status', $status)
+            ->orderBy('created_at', 'DESC')->paginate(20);
+        return view('tickets/list', compact('tickets'));
     }
 }
