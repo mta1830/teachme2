@@ -1,5 +1,6 @@
 <?php
 return [
+    'create_title'  => 'Nueva solicitud ',
     'latest_title'  => 'Solicitudes recientes',
     'popular_title' => 'Solicitudes populares',
     'open_title'    => 'Solicitudes abiertas',
