@@ -1,5 +1,7 @@
 <?php namespace TeachMe\Http\Controllers;
 
+use Illuminate\Auth\Guard;
+use Illuminate\Support\Facades\Redirect;
 use Psy\Util\String;
 use TeachMe\Entities\Ticket;
 use TeachMe\Http\Requests;
@@ -55,7 +57,17 @@ class TicketsController extends Controller
         return view('tickets/create');
     }
 
-    public function store(Request $request){
-        dd($request->all());
+    public function store(Request $request, Guard $auth){
+
+        $this->validate($request,[
+            'title' => 'required|max:120'
+        ]);
+
+        $ticket = $auth->user()->tickets()->create([
+            'title' => $request->get('title'),
+            'status' => 'open'
+        ]);
+
+        return Redirect::route('tickets.details',$ticket);
     }
 }
