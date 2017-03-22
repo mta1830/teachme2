@@ -50,4 +50,8 @@ class TicketsController extends Controller
         return Ticket::where('status', $status)
             ->orderBy('created_at', 'DESC')->paginate(20);
     }
+
+    public function create(){
+        return '[Formulario de solicitud]';
+    }
 }
