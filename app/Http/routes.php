@@ -25,16 +25,18 @@ Route::get('/tutoriales', [
     'as'   => 'tickets.closed',
     'uses' => 'TicketsController@closed'
 ]);
-Route::get('/solicitud/{id}', [
-    'as'   => 'tickets.details',
-    'uses' => 'TicketsController@details'
-]);
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
 ]);
 
 Route::group(['middleware' => 'auth'], function(){
+
+    Route::get('/solicitud/{id}', [
+        'as'   => 'tickets.details',
+        'uses' => 'TicketsController@details'
+    ]);
 
     Route::get('/solicitar',[
         'as'   => 'tickets.create',
