@@ -146,6 +146,9 @@ return [
 		'TeachMe\Providers\RouteServiceProvider',
         'TeachMe\Providers\HtmlServiceProviders',
 
+        //Laravel Debugbar
+        'Barryvdh\Debugbar\ServiceProvider',
+
 	],
 
 	/*
@@ -196,6 +199,9 @@ return [
 
         'Form'      => 'Collective\Html\FormFacade',
         'Html'      => 'Collective\Html\HtmlFacade',
+
+        //Laravel Debugbar
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
 
 	],
 
