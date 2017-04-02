@@ -2,24 +2,24 @@
 
 use Illuminate\Auth\Guard;
 use Illuminate\Support\Facades\Redirect;
-use Psy\Util\String;
 use TeachMe\Entities\Ticket;
+use TeachMe\Entities\TicketComment;
 use TeachMe\Http\Requests;
 use TeachMe\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use TeachMe\Repositories\CommentRepository;
 use TeachMe\Repositories\TicketRepository;
 
 class TicketsController extends Controller
 {
-    /**
-     * @var TicketRepository
-     */
-    private $ticketRepository;
+    protected $ticketRepository;
+    protected $commentRepository;
 
-    public function __construct(TicketRepository $ticketRepository)
+    public function __construct(TicketRepository $ticketRepository, CommentRepository $commentRepository)
     {
         $this->ticketRepository = $ticketRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     public function latest()
@@ -51,7 +51,9 @@ class TicketsController extends Controller
     public function details($id)
     {
         $ticket = $this->ticketRepository->findOrFail($id);
+        //$comments = TicketComment::with('user')->where('ticket_id',$ticket->id)->get();
 
+        //return view('tickets/details', compact(['ticket','comments']));
         return view('tickets/details', compact('ticket'));
     }
 
@@ -59,16 +61,13 @@ class TicketsController extends Controller
         return view('tickets/create');
     }
 
-    public function store(Request $request, Guard $auth){
+    public function store(Request $request){
 
         $this->validate($request,[
             'title' => 'required|max:120'
         ]);
 
-        $ticket = $auth->user()->tickets()->create([
-            'title' => $request->get('title'),
-            'status' => 'open'
-        ]);
+        $ticket = $this->ticketRepository->newOpen(currentUser(),$request->get('title'));
 
         return Redirect::route('tickets.details',$ticket);
     }

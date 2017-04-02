@@ -35,7 +35,6 @@ class TicketRepository extends BaseRepository {
     public function paginateLatest(){
         return $this->selectTicketsList()
             ->orderBy('created_at', 'DESC')
-            ->with('author')
             ->paginate(20);
     }
 
@@ -50,5 +49,13 @@ class TicketRepository extends BaseRepository {
     public function getModel()
     {
         return new Ticket();
+    }
+
+    public function newOpen(User $user, $title)
+    {
+        return $user->tickets()->create([
+            'title'  => $title,
+            'status' => 'open'
+        ]);
     }
 }
