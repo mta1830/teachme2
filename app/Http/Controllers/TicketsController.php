@@ -8,30 +8,23 @@ use TeachMe\Http\Requests;
 use TeachMe\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use TeachMe\Repositories\TicketRepository;
 
 class TicketsController extends Controller
 {
-    protected function selectTicketsList(){
+    /**
+     * @var TicketRepository
+     */
+    private $ticketRepository;
 
-        /*SELECT t.*,
-        (SELECT COUNT(*) FROM ticket_comments c WHERE c.ticket_id = t.id) AS num_comments,
-        (SELECT COUNT(*) FROM ticket_votes v WHERE v.ticket_id = t.id) AS num_votes
-        FROM tickets t*/
-
-        return Ticket::selectRaw(
-            'tickets.*,'.
-            '(SELECT COUNT(*) FROM ticket_comments WHERE ticket_comments.ticket_id = tickets.id) AS num_comments,'.
-            '(SELECT COUNT(*) FROM ticket_votes WHERE ticket_votes.ticket_id = tickets.id) AS num_votes'
-        )->with('author');
-
+    public function __construct(TicketRepository $ticketRepository)
+    {
+        $this->ticketRepository = $ticketRepository;
     }
 
     public function latest()
     {
-        $tickets = $this->selectTicketsList()
-                ->orderBy('created_at', 'DESC')
-                ->with('author')
-                ->paginate(20);
+        $tickets = $this->ticketRepository->paginateLatest();
 
         return view('tickets/list',compact('tickets'));
     }
@@ -43,34 +36,23 @@ class TicketsController extends Controller
 
     public function open()
     {
-        $tickets = $this->consultaTicketsPorStatus('open');
+        $tickets = $this->ticketRepository->paginateOpen();
 
         return view('tickets/list', compact('tickets'));
     }
 
     public function closed()
     {
-        $tickets = $this->consultaTicketsPorStatus('closed');
+        $tickets = $this->ticketRepository->paginateClosed();
 
         return view('tickets/list', compact('tickets'));
     }
 
     public function details($id)
     {
-        $ticket = Ticket::findOrFail($id);
+        $ticket = $this->ticketRepository->findOrFail($id);
 
         return view('tickets/details', compact('ticket'));
-    }
-
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function consultaTicketsPorStatus($status)
-    {
-        return $this->selectTicketsList()
-                ->where('status', $status)
-                ->orderBy('created_at', 'DESC')
-                ->paginate(20);
     }
 
     public function create(){

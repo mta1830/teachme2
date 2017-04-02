@@ -31,12 +31,12 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
-Route::group(['middleware' => 'auth'], function(){
+Route::get('/solicitud/{id}', [
+    'as'   => 'tickets.details',
+    'uses' => 'TicketsController@details'
+]);
 
-    Route::get('/solicitud/{id}', [
-        'as'   => 'tickets.details',
-        'uses' => 'TicketsController@details'
-    ]);
+Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/solicitar',[
         'as'   => 'tickets.create',

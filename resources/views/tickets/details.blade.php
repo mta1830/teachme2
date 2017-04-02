@@ -28,21 +28,21 @@
                 @endforeach
             </p>
 
-            @if( ! currentUser()->hasVoted($ticket))
-            {!! Form::open(['route' => ['votes.submit',$ticket],'method' => 'POST']) !!}
-            <button type="submit" class="btn btn-primary">
-                <span class="glyphicon glyphicon-thumbs-up"></span> Votar
-            </button>
-            {!! Form::close() !!}
-            @else
-            {!! Form::open(['route' => ['votes.destroy',$ticket],'method' => 'DELETE']) !!}
-            <button type="submit" class="btn btn-danger">
-                <span class="glyphicon glyphicon-thumbs-down"></span> Quitar voto
-            </button>
-            {!! Form::close() !!}
+            @if (Auth::check())
+                @if( ! currentUser()->hasVoted($ticket))
+                {!! Form::open(['route' => ['votes.submit',$ticket],'method' => 'POST']) !!}
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Votar
+                </button>
+                {!! Form::close() !!}
+                @else
+                {!! Form::open(['route' => ['votes.destroy',$ticket],'method' => 'DELETE']) !!}
+                <button type="submit" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-thumbs-down"></span> Quitar voto
+                </button>
+                {!! Form::close() !!}
+                @endif
             @endif
-
-
 
             <h3>Nuevo Comentario</h3>
 
