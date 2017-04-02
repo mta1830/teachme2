@@ -3,7 +3,7 @@ namespace TeachMe\Repositories;
 
 use TeachMe\Entities\Ticket;
 
-class TicketRepository{
+class TicketRepository extends BaseRepository {
 
     public function paginateClosed()
     {
@@ -17,17 +17,13 @@ class TicketRepository{
         (SELECT COUNT(*) FROM ticket_votes v WHERE v.ticket_id = t.id) AS num_votes
         FROM tickets t*/
 
-        return Ticket::selectRaw(
+        return $this->newQuery()->selectRaw(
             'tickets.*,'.
             '(SELECT COUNT(*) FROM ticket_comments WHERE ticket_comments.ticket_id = tickets.id) AS num_comments,'.
             '(SELECT COUNT(*) FROM ticket_votes WHERE ticket_votes.ticket_id = tickets.id) AS num_votes'
         )->with('author');
     }
 
-    /**
-     * @param $status
-     * @return Ticket
-     */
     protected function consultaTicketsPorStatus($status)
     {
         return $this->selectTicketsList()
@@ -49,11 +45,10 @@ class TicketRepository{
     }
 
     /**
-     * @param $id
      * @return Ticket
      */
-    public function findOrFail($id)
+    public function getModel()
     {
-        return Ticket::findOrFail($id);
+        return new Ticket();
     }
 }

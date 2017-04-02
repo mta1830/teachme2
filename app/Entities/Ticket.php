@@ -1,8 +1,6 @@
 <?php namespace TeachMe\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Ticket extends Model
+class Ticket extends Entity
 {
     protected $fillable = ['title','status'];
 

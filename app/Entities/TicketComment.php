@@ -1,8 +1,6 @@
 <?php namespace TeachMe\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-
-class TicketComment extends Model
+class TicketComment extends Entity
 {
     protected $fillable = ['comment','link'];
 
