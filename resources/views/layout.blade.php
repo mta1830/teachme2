@@ -30,6 +30,7 @@
     <![endif]-->
 </head>
 <body>
+<div id="notifications"></div>
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="row">
@@ -62,5 +63,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/alert.js') }}"></script>
 </body>
 </html>

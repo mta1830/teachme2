@@ -74,17 +74,17 @@
 }
 
 @mixin ctransition($property: 'all', $duration: 160ms, $timing-funtion: linear) {
-    @include prefixer(transition-property, unquote($property));
-    @include prefixer(transition-duration, $duration);
-    @include prefixer(transition-timing-function, $timing-funtion);
+  @include prefixer(transition-property, unquote($property));
+  @include prefixer(transition-duration, $duration);
+  @include prefixer(transition-timing-function, $timing-funtion);
 }
 
 @mixin bgrgba($c, $o) {
-    $r: red($c);
-    $g: green($c);
-    $b: blue($c);
-    background: rgba($r, $g, $b, $o);
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{ie-hex-str(rgba($r, $g, $b, $o))}', endColorstr='#{ie-hex-str(rgba($r, $g, $b, $o))}');
+  $r: red($c);
+  $g: green($c);
+  $b: blue($c);
+  background: rgba($r, $g, $b, $o);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{ie-hex-str(rgba($r, $g, $b, $o))}', endColorstr='#{ie-hex-str(rgba($r, $g, $b, $o))}');
 }
 
 // * Rotate (Origin defaults to center of element)
@@ -125,7 +125,7 @@
   }
 
   &:-moz-placeholder {
-    color: $color; 
+    color: $color;
   }
 
   &:-ms-input-placeholder {
@@ -151,9 +151,9 @@
 // * @include radius(5px);
 // *
 // * This mixin is deprecated, will be removed in future versions
-@mixin radius($radius) { 
+@mixin radius($radius) {
   @include prefixer(border-radius, $radius);
-} 
+}
 
 
 
@@ -172,13 +172,11 @@
 }
 
 @mixin transition-custom($property: all, $duration: 160ms, $timing-function: linear) {
-@include prefixer(transition-property, unquote($property));
-@include prefixer(transition-duration, $duration);
-@include prefixer(transition-timing-function, $timing-function);
+  @include prefixer(transition-property, unquote($property));
+  @include prefixer(transition-duration, $duration);
+  @include prefixer(transition-timing-function, $timing-function);
 }
 
 @mixin set-transition-delay($delay) {
-@include prefixer(transition-delay, unquote($delay));
+  @include prefixer(transition-delay, unquote($delay));
 }
-
-@import "pixel-ratio/base";
