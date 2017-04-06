@@ -145,6 +145,7 @@ return [
 		'TeachMe\Providers\EventServiceProvider',
 		'TeachMe\Providers\RouteServiceProvider',
         'TeachMe\Providers\HtmlServiceProviders',
+        'TeachMe\Providers\ViewServiceProvider',
 
         //Laravel Debugbar
         'Barryvdh\Debugbar\ServiceProvider',
